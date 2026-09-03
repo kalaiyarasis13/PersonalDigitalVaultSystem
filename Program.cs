@@ -16,10 +16,7 @@ namespace PersonalDigitalVaultSystem
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
-
-            builder.Services.AddScoped<IFeedbackService, FeedbackService>();
-
+     
             // ---------- Database ----------
             builder.Services.AddDbContext<AddDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -27,12 +24,17 @@ namespace PersonalDigitalVaultSystem
             // ---------- Repositories ----------
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+            builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+            builder.Services.AddScoped<IFolderRepository, FolderRepository>();
+          
             // Add services to the container.
 
             // ---------- Services ----------
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IPaymentService, PaymentService>();
+            builder.Services.AddScoped<IFeedbackService, FeedbackService>();
+            builder.Services.AddScoped<IFolderService, FolderService>();
 
 
             builder.Services.AddControllers();
