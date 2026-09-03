@@ -23,15 +23,17 @@ namespace PersonalDigitalVaultSystem
             // ---------- Database ----------
             builder.Services.AddDbContext<AddDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-
+            
             // ---------- Repositories ----------
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
             // Add services to the container.
 
             // ---------- Services ----------
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
+
 
             builder.Services.AddControllers();
 

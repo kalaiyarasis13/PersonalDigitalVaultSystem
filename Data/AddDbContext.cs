@@ -8,6 +8,7 @@ namespace PersonalDigitalVaultSystem.Data
     {
         public AddDbContext(DbContextOptions<AddDbContext> options) : base(options) { }
 
+        public DbSet<PaymentTransaction> PaymentTransactions => Set<PaymentTransaction>();
         public DbSet<ApplicationUser> Users => Set<ApplicationUser>();
         public DbSet<Feedback> Feedbacks => Set<Feedback>();
 
@@ -15,10 +16,21 @@ namespace PersonalDigitalVaultSystem.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<PaymentTransaction>(entity =>
+            {
+                entity.HasOne(p => p.User)
+                      .WithMany(u => u.paymentTransactions)
+                      .HasForeignKey(p => p.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+        
+        
             modelBuilder.Entity<ApplicationUser>(entity =>
             {
                 entity.HasIndex(u => u.Username).IsUnique();
                 entity.HasIndex(u => u.Email).IsUnique();
+            });
+             
             modelBuilder.Entity<Feedback>(entity =>
             {
                 entity.HasOne(f => f.User)
