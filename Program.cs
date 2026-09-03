@@ -16,6 +16,9 @@ namespace PersonalDigitalVaultSystem
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+
+            builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 
             // ---------- Database ----------
             builder.Services.AddDbContext<AddDbContext>(options =>

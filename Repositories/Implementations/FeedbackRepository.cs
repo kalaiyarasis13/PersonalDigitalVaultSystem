@@ -13,13 +13,13 @@ namespace PersonalDigitalVaultSystem.Repositories.Implementations
         {
             _context = context; 
         }
-        public async Task<Feedback> CreateAsync(Feedback feedback) 
+        public async Task<Feedback> AddAsync(Feedback feedback)
         {
             _context.Feedbacks.Add(feedback);
             await _context.SaveChangesAsync();
             return feedback;
         }
-       public Task<Feedback?> GetLatestForUserAsync(int userId) =>
+        public Task<Feedback?> GetLatestForUserAsync(int userId) =>
         _context.Feedbacks
             .Where(f => f.UserId == userId)
             .OrderByDescending(f => f.CreatedAt)
