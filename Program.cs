@@ -1,4 +1,9 @@
 
+using PersonalDigitalVaultSystem.Repositories.Implementations;
+using PersonalDigitalVaultSystem.Repositories.Interfaces;
+using PersonalDigitalVaultSystem.Services.Implementations;
+using PersonalDigitalVaultSystem.Services.Interfaces;
+
 namespace PersonalDigitalVaultSystem
 {
     public class Program
@@ -6,6 +11,11 @@ namespace PersonalDigitalVaultSystem
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddScoped<IFolderRepository, FolderRepository>();
+
+            builder.Services.AddScoped<IFolderService, FolderService>();
+
 
             // Add services to the container.
 
