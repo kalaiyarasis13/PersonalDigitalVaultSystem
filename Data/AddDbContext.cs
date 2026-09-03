@@ -8,12 +8,17 @@ namespace PersonalDigitalVaultSystem.Data
     {
         public AddDbContext(DbContextOptions<AddDbContext> options) : base(options) { }
 
+        public DbSet<ApplicationUser> Users => Set<ApplicationUser>();
         public DbSet<Feedback> Feedbacks => Set<Feedback>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<ApplicationUser>(entity =>
+            {
+                entity.HasIndex(u => u.Username).IsUnique();
+                entity.HasIndex(u => u.Email).IsUnique();
             modelBuilder.Entity<Feedback>(entity =>
             {
                 entity.HasOne(f => f.User)
