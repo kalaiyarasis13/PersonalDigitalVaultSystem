@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PersonalDigitalVaultSystem.Models;
+using System.Collections.Generic;
 using System;
 
 namespace PersonalDigitalVaultSystem.Data
@@ -12,6 +13,7 @@ namespace PersonalDigitalVaultSystem.Data
         public DbSet<PaymentTransaction> PaymentTransactions => Set<PaymentTransaction>();
         public DbSet<ApplicationUser> Users => Set<ApplicationUser>();
         public DbSet<Feedback> Feedbacks => Set<Feedback>();
+        public DbSet<SharedLink> SharedLinks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

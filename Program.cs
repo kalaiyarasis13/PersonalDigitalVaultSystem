@@ -16,7 +16,7 @@ namespace PersonalDigitalVaultSystem
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-     
+          
             // ---------- Database ----------
             builder.Services.AddDbContext<AddDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -26,6 +26,7 @@ namespace PersonalDigitalVaultSystem
             builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
             builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             builder.Services.AddScoped<IFolderRepository, FolderRepository>();
+            builder.Services.AddScoped<ISharedLinkRepository, SharedLinkRepository>();
           
             // Add services to the container.
 
@@ -35,6 +36,8 @@ namespace PersonalDigitalVaultSystem
             builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IFeedbackService, FeedbackService>();
             builder.Services.AddScoped<IFolderService, FolderService>();
+            builder.Services.AddScoped<ISharingService, SharingService>();
+
 
 
             builder.Services.AddControllers();
