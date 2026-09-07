@@ -8,12 +8,12 @@ namespace PersonalDigitalVaultSystem.Data
     public class AddDbContext : DbContext
     {
         public AddDbContext(DbContextOptions<AddDbContext> options) : base(options) { }
-
+             
         public DbSet<FolderCategory> Folders => Set<FolderCategory>();
         public DbSet<PaymentTransaction> PaymentTransactions => Set<PaymentTransaction>();
         public DbSet<ApplicationUser> Users => Set<ApplicationUser>();
         public DbSet<Feedback> Feedbacks => Set<Feedback>();
-        public DbSet<SharedLink> SharedLinks { get; set; }
+        public DbSet<SharedLink> SharedLinks => Set<SharedLink>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -54,6 +54,21 @@ namespace PersonalDigitalVaultSystem.Data
                       .HasForeignKey(f => f.ParentFolderId)
                       .OnDelete(DeleteBehavior.Restrict);
             });
+            
+            modelBuilder.Entity<SharedLink>(entity =>
+            {
+                entity.HasIndex(s => s.Token).IsUnique();
+
+                entity.HasOne(s => s.User)
+                      .WithMany(u => u.SharedLinks)
+                      .HasForeignKey(s => s.UserId)
+                      .OnDelete(DeleteBehavior.Restrict); 
+
+                entity.HasOne(s => s.Document)
+                      .WithMany()
+                      .HasForeignKey(s => s.DocumentId)
+                      .OnDelete(DeleteBehavior.Cascade);
+             });
         }
     }
 }
