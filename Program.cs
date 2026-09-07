@@ -1,4 +1,9 @@
 
+using PersonalDigitalVaultSystem.Repositories.Implementations;
+using PersonalDigitalVaultSystem.Repositories.Interfaces;
+using PersonalDigitalVaultSystem.Services.Implementations;
+using PersonalDigitalVaultSystem.Services.Interfaces;
+
 namespace PersonalDigitalVaultSystem
 {
     public class Program
@@ -6,6 +11,9 @@ namespace PersonalDigitalVaultSystem
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddScoped<ISharedLinkRepository, SharedLinkRepository>();
+            builder.Services.AddScoped<ISharingService, SharingService>();
 
             // Add services to the container.
 
